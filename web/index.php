@@ -38,7 +38,7 @@ $app->post('/bot', function() use($app) {
 		case 'message_new':
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => 'Ты живешь в '.$data->object->geo->place->city .'? Значит ты мудак!',
+				'message' => 'Ты живешь в '.$data->object->geo->type .'? Значит ты мудак!',
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
