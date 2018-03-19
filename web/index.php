@@ -39,7 +39,7 @@ $app->post('/bot', function() use($app) {
 			$request_params = [
 				'user_id' => $data->object->user_id,
 				'text' => 'Ты живешь в '.$data->object->geo->city.'?',
-				'access_token' => getenv(VK_TOKEN),
+				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
 
