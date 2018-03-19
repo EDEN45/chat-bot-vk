@@ -35,6 +35,17 @@ $app->post('/bot', function() use($app) {
 			return getenv('VK_RETURN_KEY');
 			break;
 		
+		case 'message_new':
+			$request_params = [
+				'user_id' => $data->object->user_id,
+				'text' => 'Ты живешь в '.$data->object->geo->city.'?',
+				'access_token' => getenv(VK_TOKEN),
+				'v' => '5.73'
+			];
+
+			file_get_contents('https://api.vk.com/method/messages.send?'. http_build_query($request_params));
+
+			break;
 		default:
 			# code...
 			break;
