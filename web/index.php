@@ -25,7 +25,7 @@ $app->post('/bot', function() use($app) {
 		return "bot-math-1155";
 	}
 
-	if ($data->secret !== getenv('VK_TOKEN') && $data->type !== 'confirmation')
+	if ($data->secret !== getenv('VK_SECRET_KEY') && $data->type !== 'confirmation')
 	{
 		return "bot-math-1155";
 	}
@@ -38,13 +38,13 @@ $app->post('/bot', function() use($app) {
 		case 'message_new':
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'text' => 'Ты живешь в '.$data->object->geo->city.'?',
+				'message' => 'Ты живешь в '.$data->object->geo->city.'?',
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
 
 			file_get_contents('https://api.vk.com/method/messages.send?'. http_build_query($request_params));
-
+			return 'ok';
 			break;
 		default:
 			# code...
