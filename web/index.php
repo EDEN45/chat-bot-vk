@@ -43,7 +43,7 @@ $app->post('/bot', function() use($app) {
 
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => 'Если тебя зовут {$user_name} - значит ты мудак!',
+				'message' => "Если тебя зовут {$user_name} - значит ты мудак!",
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
