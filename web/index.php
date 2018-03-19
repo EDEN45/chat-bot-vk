@@ -37,13 +37,13 @@ $app->post('/bot', function() use($app) {
 		
 		case 'message_new':
 
-
+			$user_id = $data->object->user_id;
 			$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$user_id}&v=5.73")); 
 			$user_name = $user_info->response[0]->first_name;
 
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => "Если тебя зовут {$user_name} - значит ты мудак!",
+				'message' => 'Если тебя зовут ' . $user_name .' - значит ты мудак!',
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
