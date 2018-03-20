@@ -34,16 +34,27 @@ $app->post('/bot', function() use($app) {
 		case 'confirmation':
 			return getenv('VK_RETURN_KEY');
 			break;
-		
+		$message_param = "";
 		case 'message_new':
 
 			$user_id = $data->object->user_id;
 			$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$user_id}&v=5.73")); 
 			$user_name = $user_info->response[0]->first_name;
+			
+			if ($data->object->body == "Как дела?")
+			{
+				$message_param = "Иди в жопу черт ебаный";
+			}
+			else
+			{
+
+				$message_param = 'Я не понимаю тебя ' . $user_name .' - значит ты мудак!';
+			}
+			
 
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => 'Если тебя зовут ' . $user_name .' - значит ты мудак!',
+				'message' => $message_param,
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
