@@ -65,22 +65,23 @@ $app->post('/bot', function() use($app) {
 				}
 			}
 
+			$ar_key = array_rand($phrases, 1);
+			$str = $phrases[$ar_key];
 			if ($text_s == 1)
 			{
 				
-				$message_param = "Красава! Переведи следующее слово: ";
+				$message_param = 'Красава! Переведи следующее слово ' . $str;
 			}
 			else
 			{
 				
-				$message_param = "Тупица ты! Переведи слово: ";
+				$message_param = 'Тупица ты! Переведи слово ' . $str;
 			}
 			
-			$ar_key1 = array_rand($phrases, 1);
-			$str1 = $phrases[$ar_key1];
+
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => $message_param . $str1,
+				'message' => $message_param,
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
