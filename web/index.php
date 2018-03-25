@@ -14,11 +14,11 @@ $phrases = [
 	'smoke' => 'курить',
 	'to fly' => 'летать',
 	'cry' => 'плакать',
-	'width' => 'ширина'
+	'width' => 'ширина',
 	'berry' => 'ягода',
 	'session' => 'сеанс',
 	'fate' => 'судьба',
-	'atmosphere' => 'атмосфера'
+	'atmosphere' => 'атмосфера',
 ];
 
 // Register the monolog logging service
