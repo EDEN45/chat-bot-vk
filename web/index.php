@@ -68,12 +68,12 @@ $app->post('/bot', function() use($app) {
 			if ($text_s == 1)
 			{
 				$ar_key = array_rand($phrases, 1);
-				$message_param = 'Красава! Переведи следующее слово: ' . $phrases[$ar_key];
+				$message_param = "Красава! Переведи следующее слово: " . $phrases[$ar_key] . "!";
 			}
 			else
 			{
 				$ar_key = array_rand($phrases, 1);
-				$message_param = 'Тупица ты! Переведи слово: ' . $phrases[$ar_key];
+				$message_param = "Тупица ты! Переведи слово: " . $phrases[$ar_key] . "!";
 			}
 			
 
