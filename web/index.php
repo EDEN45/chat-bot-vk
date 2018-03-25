@@ -59,14 +59,14 @@ $app->post('/bot', function() use($app) {
 			$text = mb_strtolower($data->object->body);
 			$text_s = 0;
 			foreach ($phrases as $key => $value) {
-				if ($phrases[$key] == $text)
+				if ($value == $text)
 				{
 					$text_s = 1;
 				}
 			}
 
 			$ar_key = array_rand($phrases, 1);
-			$str = $phrases[$ar_key];
+			$str = $ar_key;
 			if ($text_s == 1)
 			{
 				
