@@ -40,7 +40,7 @@ $app->post('/bot', function() use($app) {
 			$user_id = $data->object->user_id;
 			$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$user_id}&v=5.73")); 
 			$user_name = $user_info->response[0]->first_name;
-			$text = strtolower($data->object->body);
+			$text = mb_strtolower($data->object->body);
 			if ($text == "как дела?")
 			{
 				$message_param = "Иди в жопу черт ебаный";
