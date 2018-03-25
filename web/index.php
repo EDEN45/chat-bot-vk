@@ -5,6 +5,22 @@ require('../vendor/autoload.php');
 $app = new Silex\Application();
 $app['debug'] = true;
 
+// array phrasers
+
+$phrases = [
+	'sit' => 'сидеть',
+	'human' => 'человек',
+	'woman' => 'баба',
+	'smoke' => 'курить',
+	'to fly' => 'летать',
+	'cry' => 'плакать',
+	'width' => 'ширина'
+	'berry' => 'ягода',
+	'session' => 'сеанс',
+	'fate' => 'судьба',
+	'atmosphere' => 'атмосфера'
+];
+
 // Register the monolog logging service
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
   'monolog.logfile' => 'php://stderr',
@@ -41,18 +57,21 @@ $app->post('/bot', function() use($app) {
 			$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$user_id}&v=5.73")); 
 			$user_name = $user_info->response[0]->first_name;
 			$text = mb_strtolower($data->object->body);
-			if ($text == "как дела?")
-			{
-				$message_param = "Иди в жопу черт ебаный";
+			$text_s = 0;
+			foreach ($phrases as $key => $value) {
+				if ($value == $text)
+				{
+					$text_s = 1;
+				}
 			}
-			elseif($text == "привет")
+
+			if ($text_s == 1)
 			{
-				$message_param = "Привет! Кочешь яблак? или Винишко?";
+				$message_param = 'Красава! Переведи следующее слово: ' . $phrases[rand(0, count($phrases)-1)];
 			}
 			else
 			{
-
-				$message_param = 'Я не понимаю тебя ' . $user_name .' - значит ты мудак!';
+				$message_param = 'Тупица ты! Переведи слово: ' . rand(0, count($phrases)-1);
 			}
 			
 
