@@ -67,21 +67,20 @@ $app->post('/bot', function() use($app) {
 
 			if ($text_s == 1)
 			{
-				$ar_key = array_rand($phrases, 1);
-				$str = $phrases[$ar_key];
-				$message_param = "Красава! Переведи следующее слово: {$str}!";
+				
+				$message_param = "Красава! Переведи следующее слово: ";
 			}
 			else
 			{
-				$ar_key = array_rand($phrases, 1);
-				$str = $phrases[$ar_key];
-				$message_param = "Тупица ты! Переведи слово: {$str}!";
+				
+				$message_param = "Тупица ты! Переведи слово: ";
 			}
 			
-
+			$ar_key1 = array_rand($phrases, 1);
+			$str1 = $phrases[$ar_key1];
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => $message_param,
+				'message' => $message_param . $str1,
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
