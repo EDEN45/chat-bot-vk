@@ -69,13 +69,13 @@ $app->post('/bot', function() use($app) {
 			{
 				$ar_key = array_rand($phrases, 1);
 				$str = $phrases[$ar_key];
-				$message_param = "Красава! Переведи следующее слово: " . $str . "!";
+				$message_param = "Красава! Переведи следующее слово: {$str}!";
 			}
 			else
 			{
 				$ar_key = array_rand($phrases, 1);
 				$str = $phrases[$ar_key];
-				$message_param = "Тупица ты! Переведи слово: " . $str . "!";
+				$message_param = "Тупица ты! Переведи слово: {$str}!";
 			}
 			
 
