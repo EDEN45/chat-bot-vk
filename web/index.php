@@ -84,7 +84,7 @@ $app->post('/bot', function() use($app) {
 
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => $message_param,
+				'message' => $message_param . ' ' . $user_name . ' написал: ' . $text,
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
