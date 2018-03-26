@@ -6,7 +6,9 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 // array phrasers
-
+//$vk_token = '';
+//$vk_secret_key = '';
+//$vk_return_key = '';
 $phrases = [
 	'sit' => 'сидеть',
 	'human' => 'человек',
@@ -65,8 +67,8 @@ $app->post('/bot', function() use($app) {
 				}
 			}
 
-			$ar_key = array_rand($phrases, 1);
-			$str = $ar_key;
+			$str = $phrases[mt_rand(0, count($phrases) - 1)];
+			
 			if ($text_s == 1)
 			{
 				
