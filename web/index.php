@@ -62,7 +62,7 @@ $app->post('/bot', function() use($app) {
 			$text = mb_strtolower($data->object->body);
 			$text_s = 0;
 			foreach ($phrases as $key => $value) {
-				if ($value == $text)
+				if ($key == $text)
 				{
 					$text_s = 1;
 				}
