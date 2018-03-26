@@ -66,7 +66,7 @@ $app->post('/bot', function() use($app) {
 					$text_s = 1;
 				}
 			}
-			$rnd_n = mt_rand(0, count($phrases) - 1);
+			$rnd_n = rand(0, count($phrases) - 1);
 			$str = $phrases[$rnd_n];
 			
 			if ($text_s == 1)
