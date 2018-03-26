@@ -84,7 +84,7 @@ $app->post('/bot', function() use($app) {
 
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => $rnd_nu[0],
+				'message' => $phras[$rnd_nu[0]],
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
