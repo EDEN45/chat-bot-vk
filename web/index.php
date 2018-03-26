@@ -9,19 +9,7 @@ $app['debug'] = true;
 //$vk_token = '';
 //$vk_secret_key = '';
 //$vk_return_key = '';
-$phrases = [
-	'sit' => 'сидеть',
-	'human' => 'человек',
-	'woman' => 'баба',
-	'smoke' => 'курить',
-	'to fly' => 'летать',
-	'cry' => 'плакать',
-	'width' => 'ширина',
-	'berry' => 'ягода',
-	'session' => 'сеанс',
-	'fate' => 'судьба',
-	'atmosphere' => 'атмосфера',
-];
+
 
 // Register the monolog logging service
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
@@ -36,6 +24,19 @@ $app->get('/', function() use($app) {
 // Our web handlers
 $app->post('/bot', function() use($app) {
 
+	$phras = [
+	'sit' => 'сидеть',
+	'human' => 'человек',
+	'woman' => 'баба',
+	'smoke' => 'курить',
+	'to fly' => 'летать',
+	'cry' => 'плакать',
+	'width' => 'ширина',
+	'berry' => 'ягода',
+	'session' => 'сеанс',
+	'fate' => 'судьба',
+	'atmosphere' => 'атмосфера',
+	];
 	$data = json_decode(file_get_contents('php://input'));
 
 	if (!$data)
@@ -66,7 +67,7 @@ $app->post('/bot', function() use($app) {
 					$text_s = 1;
 				}
 			}
-			$rnd_n = array_rand($phrases, 2);
+			$rnd_nu = array_rand($phras, 2);
 			//$str = $phrases[$rnd_n];
 			
 			if ($text_s == 1)
@@ -83,7 +84,7 @@ $app->post('/bot', function() use($app) {
 
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => $rnd_n[0],
+				'message' => $rnd_nu[0],
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
