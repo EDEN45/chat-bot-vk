@@ -66,8 +66,8 @@ $app->post('/bot', function() use($app) {
 					$text_s = 1;
 				}
 			}
-
-			$str = $phrases[mt_rand(0, count($phrases) - 1)];
+			$rnd_n = mt_rand(0, count($phrases) - 1)
+			$str = $phrases[$rnd_n];
 			
 			if ($text_s == 1)
 			{
@@ -83,7 +83,7 @@ $app->post('/bot', function() use($app) {
 
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => $message_param,
+				'message' => $str,
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
