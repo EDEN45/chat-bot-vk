@@ -5,11 +5,6 @@ require('../vendor/autoload.php');
 $app = new Silex\Application();
 $app['debug'] = true;
 
-// array phrasers
-//$vk_token = '';
-//$vk_secret_key = '';
-//$vk_return_key = '';
-
 
 // Register the monolog logging service
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
