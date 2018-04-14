@@ -41,7 +41,7 @@ $app->post('/bot', function() use($app) {
 			$user_name = $user_info->response[0]->first_name;
 			$text = mb_strtolower($data->object->body);
 
-			if ($text == 'list')
+			if ($text === 'langlist')
 			{
                 $myCurl = curl_init();
                 curl_setopt_array($myCurl, array(
@@ -53,11 +53,11 @@ $app->post('/bot', function() use($app) {
                 $response = curl_exec($myCurl);
                 curl_close($myCurl);
                 $response = json_decode($response);
-                $message_param = '';
-                foreach ($response->langs as $key => $val){
-                    $message_param .= $key . ':' . $val;
-                    $message_param .= '/n';
-                }
+                $message_param = 'responseTest';
+//                foreach ($response->langs as $key => $val){
+//                    $message_param .= $key . ':' . $val;
+//                    $message_param .= '/n';
+//                }
 			}
 			else
 			{
