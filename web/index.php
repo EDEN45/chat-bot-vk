@@ -19,19 +19,6 @@ $app->get('/', function() use($app) {
 // Our web handlers
 $app->post('/bot', function() use($app) {
 
-	$phrases = [
-	'sit' => 'сидеть',
-	'human' => 'человек',
-	'woman' => 'баба',
-	'smoke' => 'курить',
-	'to fly' => 'летать',
-	'cry' => 'плакать',
-	'width' => 'ширина',
-	'berry' => 'ягода',
-	'session' => 'сеанс',
-	'fate' => 'судьба',
-	'atmosphere' => 'атмосфера',
-	];
 	$data = json_decode(file_get_contents('php://input'));
 
 	if (!$data)
@@ -48,34 +35,55 @@ $app->post('/bot', function() use($app) {
 		case 'confirmation':
 			return getenv('VK_RETURN_KEY');
 			break;
-		$message_param = "";
 		case 'message_new':
-
+            $message_param = "";
 			$user_id = $data->object->user_id;
-			$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$user_id}&v=5.73")); 
+			$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$user_id}&v=5.73"));
 			$user_name = $user_info->response[0]->first_name;
 			$text = mb_strtolower($data->object->body);
-			$text_s = 0;
-			foreach ($phrases as $key => $value) {
-				if ($key == $text)
-				{
-					$text_s = 1;
-				}
-			}
-			$rnd_n = array_rand($phrases, 1);
-			$str = $phrases[$rnd_n];
-			
-			if ($text_s == 1)
+
+			if ($text == 'list')
 			{
-				
-				$message_param = 'Красава! Переведи следующее слово ' . $str;
+                $myCurl = curl_init();
+                curl_setopt_array($myCurl, array(
+                    CURLOPT_URL => 'https://translate.yandex.net/api/v1.5/tr.json/getLangs',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POST => true,
+                    CURLOPT_POSTFIELDS => "key=trnsl.1.1.20180413T172147Z.6f22e4dfc88bc4ec.4267b106cc2103bc4ebabcf61fc464463f970087&ui=ru"
+                ));
+                $response = curl_exec($myCurl);
+                curl_close($myCurl);
+                $response = json_decode($response);
+                $str = '';
+                foreach ($response->langs as $key => $val){
+                    $str .= $key . ':' . $val;
+                    $str .= '/n';
+                }
+                $message_param = $str;
 			}
 			else
 			{
-				
-				$message_param = 'Тупица ты! Переведи слово ' . $str;
+                $arr = explode(' ', $text);
+                $lang = $arr[count($arr)-1];
+                if(strlen($lang) > 2){
+                    $message_param = 'Укажите язык';
+                } else {
+                    array_pop($arr);
+                    $text = implode(' ', $arr);
+                    $myCurl = curl_init();
+                    curl_setopt_array($myCurl, array(
+                        CURLOPT_URL => 'https://translate.yandex.net/api/v1.5/tr.json/translate',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_POST => true,
+                        CURLOPT_POSTFIELDS => "key=trnsl.1.1.20180413T172147Z.6f22e4dfc88bc4ec.4267b106cc2103bc4ebabcf61fc464463f970087&text=" . $text . "&lang=" . $lang
+                    ));
+                    $response = curl_exec($myCurl);
+                    curl_close($myCurl);
+                    $response = json_decode($response);
+                    $message_param = $response->text[0];
+                }
 			}
-			
+
 
 			$request_params = [
 				'user_id' => $data->object->user_id,
