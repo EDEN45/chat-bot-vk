@@ -36,7 +36,6 @@ $app->post('/bot', function() use($app) {
 			return getenv('VK_RETURN_KEY');
 			break;
 		case 'message_new':
-            $message_param = "";
 			$user_id = $data->object->user_id;
 			$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$user_id}&v=5.73"));
 			$user_name = $user_info->response[0]->first_name;
@@ -54,12 +53,11 @@ $app->post('/bot', function() use($app) {
                 $response = curl_exec($myCurl);
                 curl_close($myCurl);
                 $response = json_decode($response);
-                $str = '';
+                $message_param = '';
                 foreach ($response->langs as $key => $val){
-                    $str .= $key . ':' . $val;
-                    $str .= '/n';
+                    $message_param .= $key . ':' . $val;
+                    $message_param .= '/n';
                 }
-                $message_param = $str;
 			}
 			else
 			{
@@ -84,10 +82,9 @@ $app->post('/bot', function() use($app) {
                 }
 			}
 
-
 			$request_params = [
 				'user_id' => $data->object->user_id,
-				'message' => $message_param . ' ' . $user_name . ' написал: ' . $text,
+				'message' => $message_param,
 				'access_token' => getenv('VK_TOKEN'),
 				'v' => '5.73'
 			];
