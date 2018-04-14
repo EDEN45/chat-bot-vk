@@ -4,7 +4,10 @@
     "monolog/monolog": "^1.22",
     "twig/twig": "^2.0",
     "symfony/twig-bridge": "^3",
-    "denissimon/formula-parser": "^2.5"
+    "denissimon/formula-parser": "^2.5",
+    "doctrine/dbal": "~2.2",
+    "symfony/console": "^2.7",
+    "doctrine/migrations": "^1.1"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
